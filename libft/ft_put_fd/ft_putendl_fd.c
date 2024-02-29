@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 18:12:29 by ccormon          ###   ########.fr       */
+/*   Created: 2023/10/22 11:48:10 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/29 13:31:14 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include "libft/libft.h"
-
-typedef struct s_pipex
+void	ft_putendl_fd(char *s, int fd)
 {
-	int		argc;
-	char	**argv;
-	char	**path;
-	int		wr_pipe;
-	int		fd_pipe[2];
-	int		pid;
-}	t_pipex;
+	int	i;
 
-#endif
+	i = 0;
+	while (s[i])
+		write(fd, &s[i++], 1);
+	write(fd, "\n", 1);
+}

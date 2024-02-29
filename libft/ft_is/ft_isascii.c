@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 18:12:29 by ccormon          ###   ########.fr       */
+/*   Created: 2023/08/10 15:58:52 by ccormon           #+#    #+#             */
+/*   Updated: 2024/02/29 13:31:14 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include "libft/libft.h"
-
-typedef struct s_pipex
+bool	ft_isascii(int c)
 {
-	int		argc;
-	char	**argv;
-	char	**path;
-	int		wr_pipe;
-	int		fd_pipe[2];
-	int		pid;
-}	t_pipex;
-
-#endif
+	if (c >= 0 && c <= 127)
+		return (true);
+	return (false);
+}

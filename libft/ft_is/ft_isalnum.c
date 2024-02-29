@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 18:12:29 by ccormon          ###   ########.fr       */
+/*   Created: 2023/08/10 15:41:06 by ccormon           #+#    #+#             */
+/*   Updated: 2024/02/29 13:31:14 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include "libft/libft.h"
-
-typedef struct s_pipex
+bool	ft_isalnum(int c)
 {
-	int		argc;
-	char	**argv;
-	char	**path;
-	int		wr_pipe;
-	int		fd_pipe[2];
-	int		pid;
-}	t_pipex;
-
-#endif
+	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (true);
+	return (false);
+}

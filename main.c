@@ -5,47 +5,86 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 16:34:49 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/17 16:56:34 by ccormon          ###   ########.fr       */
+/*   Created: 2024/02/29 12:55:00 by ccormon           #+#    #+#             */
+/*   Updated: 2024/02/29 18:38:24 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	exit_error(int code, t_cmd *cmd)
+int	main(int argc, char **argv, char **envp)
 {
-	if (code == 1 || code == 2 || code == 3 || code == 4)
-		free(cmd->cmd1_path);
-	if (code == 2 || code == 3 || code == 4)
-		free(cmd->cmd2_path);
-	if (code == 3 || code == 4)
-		free_args(cmd->cmd1_args);
-	if (code == 4)
-		free_args(cmd->cmd2_args);
-	exit(2);
+	t_pipex	cmd;
+
+	if (argc < 5)
+	{
+		ft_printf("Invalid number of arguments.\n");
+		return (EXIT_FAILURE);
+	}
+	if (!init_pipex(&cmd, argc, argv, envp))
+		return (EXIT_FAILURE);
+	if (!pipex(&cmd))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-void	free_args(char **args)
+bool	pipex(t_pipex *cmd)
 {
 	size_t	i;
 
-	i = 0;
-	while (args[i])
-		free(args[i++]);
+	i = 1;
+	while (i < cmd->argc - 2)
+	{
+		if (pipe(cmd->fd_pipe) == -1)
+			return (false);
+		cmd->pid = fork();
+		if (cmd->pid == -1)
+			return (false);
+		if (cmd->pid == 0)
+			exec_child(cmd);
+		close(cmd->fd_pipe[0]);
+		cmd->wr_pipe = cmd->fd_pipe[1];
+		//close(cmd->fd_pipe[1]);
+		waitpid(cmd->pid, NULL, 0);
+		i++;
+	}
+	exec_last_child(cmd);
 }
 
-int	main(int argc, char **argv, char **envp)
+bool	init_pipex(t_pipex *cmd, int argc, char **argv, char **envp)
 {
-	t_cmd	cmd;
+	cmd->argc = argc - 1;
+	cmd->argv = argv + 1;
+	while (!found_path_line(*envp))
+		envp++;
+	cmd->path = ft_split(*envp + 5, ':');
+	if (!cmd->path)
+		return (false);
+	return (true);
+}
 
-	if (argc != 5)
-		return (EXIT_FAILURE);
-	argv++;
-	init_path(&cmd, argv, envp);
-	pipex(&cmd, argv, envp);
-	free(cmd.cmd1_path);
-	free(cmd.cmd2_path);
-	free_args(cmd.cmd1_args);
-	free_args(cmd.cmd2_args);
-	return (EXIT_SUCCESS);
+char	*ft_strjoin_path(char *s1, char *s2)
+{
+	char	*s;
+	size_t	i;
+
+	s = malloc((ft_strlen(s1) + ft_strlen(s2) + 2) * sizeof(char));
+	i = 0;
+	while (*s1)
+		s[i++] = *s1++;
+	s[i++] = '/';
+	while (*s2)
+		s[i++] = *s2++;
+	s[i] = '\0';
+	return (s);
+}
+
+bool	found_path_line(char *str)
+{
+	if (!str || ft_strlen(str) < 5)
+		return (false);
+	if (*str == 'P' && *(str + 1) == 'A' && *(str + 2) == 'T'
+		&& *(str + 3) == 'H' && *(str + 4) == '=')
+		return (true);
+	return (false);
 }

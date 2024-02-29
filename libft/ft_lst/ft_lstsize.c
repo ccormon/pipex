@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 18:12:29 by ccormon          ###   ########.fr       */
+/*   Created: 2023/10/22 13:14:33 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/29 13:31:14 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include "libft/libft.h"
-
-typedef struct s_pipex
+size_t	ft_lstsize(t_list *lst)
 {
-	int		argc;
-	char	**argv;
-	char	**path;
-	int		wr_pipe;
-	int		fd_pipe[2];
-	int		pid;
-}	t_pipex;
+	size_t	i;
 
-#endif
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 18:12:29 by ccormon          ###   ########.fr       */
+/*   Created: 2023/10/05 16:36:26 by marvin            #+#    #+#             */
+/*   Updated: 2024/02/29 13:31:14 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include "libft/libft.h"
-
-typedef struct s_pipex
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		argc;
-	char	**argv;
-	char	**path;
-	int		wr_pipe;
-	int		fd_pipe[2];
-	int		pid;
-}	t_pipex;
+	char	*s0;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	i;
 
-#endif
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	s0 = malloc((s1_len + s2_len + 1) * sizeof(char));
+	if (!s0)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		s0[i] = s1[i];
+		i++;
+	}
+	while (s2[i - s1_len])
+	{
+		s0[i] = s2[i - s1_len];
+		i++;
+	}
+	s0[i] = '\0';
+	return (s0);
+}
