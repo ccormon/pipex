@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:04:21 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 13:28:45 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/04 19:56:37 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,3 @@ char	*get_next_line(int fd)
 	cleanreaded(&readed);
 	return (line);
 }
-
-/* int	main(int argc, char **argv)
-{
-	char	*line;
-	int		fd;
-
-	if (argc == 2)
-	{
-		fd = open(argv[1], O_RDONLY);
-		while (1)
-		{
-			line = get_next_line(fd);
-			if (!line)
-				break ;
-			printf("%s", line);
-		}
-		close(fd);
-	}
-	return (0);
-}
- */

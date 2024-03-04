@@ -6,24 +6,27 @@
 #    By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/02 16:38:09 by ccormon           #+#    #+#              #
-#    Updated: 2024/02/29 15:18:14 by ccormon          ###   ########.fr        #
+#    Updated: 2024/03/04 19:43:44 by ccormon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		=	pipex
+NAME 		= pipex
 
-CC 			=	gcc
-RM			=	rm -f
-CLONE 		=	git clone
-CFLAGS 		+=	-Wall -Wextra -Werror
+CC 			= gcc
+RM			= rm -f
+CLONE 		= git clone
+CFLAGS 		+= -Wall -Wextra -Werror
 CLINKS		=
 
-FT			=	libft
-LIBFT		=	$(FT)/libft.a
+FT			= libft
+LIBFT		= $(FT)/libft.a
 
-SRC 		=	main.c\
+SRC		=	main.c\
+			init_pipex.c\
+			init_pipex_hd.c\
+			exit_pipex.c\
 
-OBJ 		=	$(SRC:.c=.o)
+OBJ 		= $(SRC:.c=.o)
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 18:48:58 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 13:36:03 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/04 20:29:43 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+bool	ft_strcmp(const char *s1, const char *s2);
 
 // ft_to
 int		ft_atoi(const char *nptr);
