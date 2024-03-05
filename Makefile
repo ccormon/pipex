@@ -6,7 +6,7 @@
 #    By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/02 16:38:09 by ccormon           #+#    #+#              #
-#    Updated: 2024/03/04 19:43:44 by ccormon          ###   ########.fr        #
+#    Updated: 2024/03/05 11:33:17 by ccormon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,15 +42,10 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	if [ -d "$(FT)" ]; then $(MAKE) clean -C $(FT); fi
 	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(LIBFT)
 	$(RM) $(NAME)
-
-clear: fclean
-	$(RM) -r $(FT)
 
 re: fclean all
 

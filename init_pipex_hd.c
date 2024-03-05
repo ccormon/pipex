@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:43:13 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/04 20:47:53 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/05 11:02:02 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	open_files_hd(t_pipex *data, int argc, char **argv)
 	data->in_fd = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (data->in_fd == -1)
 	{
-		error_msg(TMP_FILE, 2);
-		exit_pipex(data, 0, 4);
+		perror(TMP_FILE);
+		exit_pipex(data, 0, 1);
 	}
 	lim_eol = ft_strjoin(argv[1], "\n");
 	read_input(data, lim_eol);
@@ -54,12 +54,7 @@ void	open_files_hd(t_pipex *data, int argc, char **argv)
 	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (data->out_fd == -1)
 	{
-		error_msg(argv[argc - 1], 2);
-		exit_pipex(data, 0, 7);
+		perror(argv[argc - 1]);
+		exit_pipex(data, 0, 2);
 	}
-}
-
-void	init_pipex_hd(t_pipex *data, int argc, char **argv, char **envp)
-{
-	open_files_hd(data, argc, argv);
 }

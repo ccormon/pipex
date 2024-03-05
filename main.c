@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 12:55:00 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/04 20:30:46 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/05 11:45:21 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	pipex(t_pipex *data, char **envp)
 	close(data->pipe_fd[(cmd_no + 1) % 2][1]);
 	close(data->pipe_fd[cmd_no % 2][0]);
 	wait_childs(data);
-	exit_pipex(data, data->nb_cmd, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -88,10 +87,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (data.here_doc)
-		init_pipex_hd(data, argc - 1, argv + 1, envp);
-	else
-		init_pipex(&data, argc - 1, argv + 1, envp);
+	init_pipex(&data, argc - 1, argv + 1, envp);
 	pipex(&data, envp);
+	exit_pipex(&data, data.nb_cmd, 0);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/04 19:52:54 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/05 11:19:52 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*ft_which(char *cmd, char **paths)
 			return (cmd_path);
 		free(cmd_path);
 	}
-	error_msg(cmd, 1);
 	return (NULL);
 }
 
@@ -60,14 +59,14 @@ void	open_files(t_pipex *data, int argc, char **argv)
 	data->in_fd = open(argv[0], O_RDONLY);
 	if (data->in_fd == -1)
 	{
-		error_msg(argv[0], 2);
-		exit_pipex(data, data->nb_cmd, 2);
+		perror(argv[0]);
+		exit_pipex(data, 0, 1);
 	}
 	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->out_fd == -1)
 	{
-		error_msg(argv[argc - 1], 2);
-		exit_pipex(data, data->nb_cmd, 3);
+		perror(argv[argc - 1]);
+		exit_pipex(data, 0, 2);
 	}
 }
 
@@ -75,23 +74,27 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 {
 	size_t	i;
 
+	if (data->here_doc)
+		open_files_hd(data, argc, argv++);
+	else
+		open_files(data, argc, argv);
 	while (!found_path_line(*envp))
 		envp++;
+	data->nb_cmd = argc - 2 - data->here_doc;
+	data->cmd = malloc(data->nb_cmd * sizeof(t_cmd));
 	data->paths = ft_split(*envp + 5, ':');
-	data->cmd = malloc((argc - 2) * sizeof(t_cmd));
+	argv++;
 	i = 0;
-	while (argv[i + 2])
+	while (argv[i + 1])
 	{
-		data->cmd[i].args = ft_split(argv[i + 1], ' ');
+		data->cmd[i].args = ft_split(argv[i], ' ');
 		data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
 		if (!data->cmd[i++].path)
 		{
-			error_msg(data->cmd->args[0], 1);
-			exit_pipex(data, i, 1);
+			perror(data->cmd->args[0]);
+			exit_pipex(data, i, 3);
 		}
 	}
-	data->nb_cmd = i;
 	data->pid_child = malloc(data->nb_cmd * sizeof(int));
-	open_files(data, argc, argv);
 }
 
