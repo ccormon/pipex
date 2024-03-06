@@ -6,11 +6,11 @@
 #    By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 15:48:31 by ccormon           #+#    #+#              #
-#    Updated: 2024/03/04 20:30:12 by ccormon          ###   ########.fr        #
+#    Updated: 2024/03/06 11:24:08 by ccormon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc -g -Wall -Wextra -Werror
 
 NAME = libft.a
 

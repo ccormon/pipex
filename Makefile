@@ -6,7 +6,7 @@
 #    By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/02 16:38:09 by ccormon           #+#    #+#              #
-#    Updated: 2024/03/05 11:33:17 by ccormon          ###   ########.fr        #
+#    Updated: 2024/03/06 11:23:46 by ccormon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME 		= pipex
 CC 			= gcc
 RM			= rm -f
 CLONE 		= git clone
-CFLAGS 		+= -Wall -Wextra -Werror
+CFLAGS 		+= -g -Wall -Wextra -Werror
 CLINKS		=
 
 FT			= libft

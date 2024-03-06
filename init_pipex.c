@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/05 11:19:52 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:41:34 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*ft_which(char *cmd, char **paths)
 	char	*cmd_path;
 	size_t	i;
 
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	i = 0;
 	while (paths[i])
 	{
@@ -78,16 +80,21 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 		open_files_hd(data, argc, argv++);
 	else
 		open_files(data, argc, argv);
-	while (!found_path_line(*envp))
+	ft_putstr_fd("is it here ? 1\n", STDERR_FILENO);
+	while (envp && !found_path_line(*envp))
+	{
+		ft_putstr_fd("is it here ? 1\n", STDERR_FILENO);
 		envp++;
+	}
+	if (!envp || !(*envp))
+		exit_pipex(data, 0, 2);
 	data->nb_cmd = argc - 2 - data->here_doc;
 	data->cmd = malloc(data->nb_cmd * sizeof(t_cmd));
 	data->paths = ft_split(*envp + 5, ':');
-	argv++;
 	i = 0;
-	while (argv[i + 1])
+	while (argv[i + 2])
 	{
-		data->cmd[i].args = ft_split(argv[i], ' ');
+		data->cmd[i].args = ft_split(argv[i + 1], ' ');
 		data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
 		if (!data->cmd[i++].path)
 		{

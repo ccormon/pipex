@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:43:13 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/05 11:02:02 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/06 13:03:15 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ void	open_files_hd(t_pipex *data, int argc, char **argv)
 	lim_eol = ft_strjoin(argv[1], "\n");
 	read_input(data, lim_eol);
 	free(lim_eol);
+	close(data->in_fd);
+	data->in_fd = open(TMP_FILE, O_RDONLY);
+	if (data->in_fd == -1)
+	{
+		perror(TMP_FILE);
+		exit_pipex(data, 0, 1);
+	}
 	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (data->out_fd == -1)
 	{
