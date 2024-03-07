@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/06 16:41:34 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/07 10:42:49 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	found_path_line(char *str)
 {
-	if (!str || ft_strlen(str) < 5)
+	if (!str || !(*str) || ft_strlen(str) < 5)
 		return (false);
 	if (*str == 'P' && *(str + 1) == 'A' && *(str + 2) == 'T'
 		&& *(str + 3) == 'H' && *(str + 4) == '=')
@@ -80,12 +80,8 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 		open_files_hd(data, argc, argv++);
 	else
 		open_files(data, argc, argv);
-	ft_putstr_fd("is it here ? 1\n", STDERR_FILENO);
-	while (envp && !found_path_line(*envp))
-	{
-		ft_putstr_fd("is it here ? 1\n", STDERR_FILENO);
+	while (envp && *envp && !found_path_line(*envp))
 		envp++;
-	}
 	if (!envp || !(*envp))
 		exit_pipex(data, 0, 2);
 	data->nb_cmd = argc - 2 - data->here_doc;
@@ -98,10 +94,9 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 		data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
 		if (!data->cmd[i++].path)
 		{
-			perror(data->cmd->args[0]);
+			error_msg(data->cmd->args[0]);
 			exit_pipex(data, i, 3);
 		}
 	}
 	data->pid_child = malloc(data->nb_cmd * sizeof(int));
 }
-

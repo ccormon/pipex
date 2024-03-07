@@ -6,11 +6,19 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:55:19 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/05 11:42:59 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/07 10:26:21 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	error_msg(char *cmd)
+{
+	char	*msg;
+
+	msg = ft_strjoin(cmd, ": invalid command\n");
+	free(msg);
+}
 
 void	free_split(char **split)
 {
@@ -40,6 +48,7 @@ void	exit_pipex(t_pipex *data, size_t nb_cmd, int code)
 			free_split(data->cmd[i].args);
 			free(data->cmd[i++].path);
 		}
+		free(data->cmd);
 	}
 	if (code == 0)
 		free(data->pid_child);

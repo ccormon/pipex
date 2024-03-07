@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 18:48:58 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/04 20:29:43 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/07 11:04:19 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*ft_itoa(int n);
 
 // get_next_line
 char	*get_next_line(int fd);
+ssize_t	readline(ssize_t byte_read, char *buffer, char **readed, int fd);
 bool	ft_isinstr(char *str, int c);
 void	addtoreaded(char **readed, char *buffer);
 char	*addtoline(char *readed);

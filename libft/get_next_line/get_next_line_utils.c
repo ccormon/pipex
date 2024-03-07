@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:04:17 by ccormon           #+#    #+#             */
-/*   Updated: 2024/02/29 13:28:50 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/07 10:50:47 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	cleanreaded(char **readed)
 	temp[j] = '\0';
 	free(*readed);
 	*readed = temp;
+	free(temp);
 }
