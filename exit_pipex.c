@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:55:19 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/07 10:26:21 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:44:09 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	error_msg(char *cmd)
 	char	*msg;
 
 	msg = ft_strjoin(cmd, ": invalid command\n");
+	ft_putstr_fd(msg, STDERR_FILENO);
 	free(msg);
 }
 
@@ -30,7 +31,7 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	exit_pipex(t_pipex *data, size_t nb_cmd, int code)
+void	exit_pipex(t_pipex *data, int code)
 {
 	size_t	i;
 
@@ -43,15 +44,16 @@ void	exit_pipex(t_pipex *data, size_t nb_cmd, int code)
 		close (data->out_fd);
 		free_split(data->paths);
 		i = 0;
-		while (i < nb_cmd)
+		while (i < data->nb_cmd)
 		{
 			free_split(data->cmd[i].args);
 			free(data->cmd[i++].path);
 		}
 		free(data->cmd);
-	}
-	if (code == 0)
 		free(data->pid_child);
+	}
+	if (code == 127)
+		exit(127);
 	if (code != 0)
 		exit(EXIT_FAILURE);
 }

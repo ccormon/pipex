@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:43:13 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/07 15:31:28 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:29:52 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	read_input(t_pipex *data, char *lim_eol)
 	if (!buffer || ft_strcmp(buffer, lim_eol))
 	{
 		free(buffer);
-		exit_pipex(data, 0, 5);
+		exit_pipex(data, 5);
 	}
 	while (buffer && !ft_strcmp(buffer, lim_eol))
 	{
@@ -33,7 +33,7 @@ void	read_input(t_pipex *data, char *lim_eol)
 	if (!buffer)
 	{
 		free(buffer);
-		exit_pipex(data, 0, 6);
+		exit_pipex(data, 6);
 	}
 	free(buffer);
 }
@@ -46,7 +46,7 @@ void	open_files_hd(t_pipex *data, int argc, char **argv)
 	if (data->in_fd == -1)
 	{
 		perror(TMP_FILE);
-		exit_pipex(data, 0, 1);
+		exit_pipex(data, 1);
 	}
 	lim_eol = ft_strjoin(argv[1], "\n");
 	read_input(data, lim_eol);
@@ -56,12 +56,12 @@ void	open_files_hd(t_pipex *data, int argc, char **argv)
 	if (data->in_fd == -1)
 	{
 		perror(TMP_FILE);
-		exit_pipex(data, 0, 1);
+		exit_pipex(data, 1);
 	}
 	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (data->out_fd == -1)
 	{
 		perror(argv[argc - 1]);
-		exit_pipex(data, 0, 2);
+		exit_pipex(data, 2);
 	}
 }

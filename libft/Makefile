@@ -6,7 +6,7 @@
 #    By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 15:48:31 by ccormon           #+#    #+#              #
-#    Updated: 2024/03/06 11:24:08 by ccormon          ###   ########.fr        #
+#    Updated: 2024/03/08 15:21:17 by ccormon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ SRC =	ft_is/ft_isalnum.c\
 		ft_str/ft_tolower.c\
 		ft_str/ft_toupper.c\
 		get_next_line/get_next_line.c\
-		get_next_line/get_next_line_utils.c\
 		ft_alloc/ft_bzero.c\
 		ft_alloc/ft_calloc.c\
 		ft_to/ft_atoi.c\

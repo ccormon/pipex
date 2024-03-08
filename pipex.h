@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 12:55:39 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/07 10:27:16 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:30:04 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	open_files(t_pipex *data, int argc, char **argv);
 void	open_files_hd(t_pipex *data, int argc, char **argv);
 void	read_input(t_pipex *data, char *lim_eol);
 // exit_pipex
-void	exit_pipex(t_pipex *data, size_t cmd_no, int code);
+void	exit_pipex(t_pipex *data, int code);
 void	error_msg(char *cmd);
 void	free_split(char **split);
 

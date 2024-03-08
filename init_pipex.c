@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/07 10:42:49 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:30:09 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void	open_files(t_pipex *data, int argc, char **argv)
 	if (data->in_fd == -1)
 	{
 		perror(argv[0]);
-		exit_pipex(data, 0, 1);
+		exit_pipex(data, 1);
 	}
 	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->out_fd == -1)
 	{
 		perror(argv[argc - 1]);
-		exit_pipex(data, 0, 2);
+		exit_pipex(data, 2);
 	}
 }
 
@@ -83,7 +83,7 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	while (envp && *envp && !found_path_line(*envp))
 		envp++;
 	if (!envp || !(*envp))
-		exit_pipex(data, 0, 2);
+		exit_pipex(data, 2);
 	data->nb_cmd = argc - 2 - data->here_doc;
 	data->cmd = malloc(data->nb_cmd * sizeof(t_cmd));
 	data->paths = ft_split(*envp + 5, ':');
@@ -92,11 +92,7 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	{
 		data->cmd[i].args = ft_split(argv[i + 1], ' ');
 		data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
-		if (!data->cmd[i++].path)
-		{
-			error_msg(data->cmd->args[0]);
-			exit_pipex(data, i, 3);
-		}
+		i++;
 	}
 	data->pid_child = malloc(data->nb_cmd * sizeof(int));
 }

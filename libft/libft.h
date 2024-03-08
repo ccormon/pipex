@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 18:48:58 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/07 11:04:19 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 15:17:45 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <stdarg.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 5
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 typedef struct s_list
 {
@@ -104,7 +106,6 @@ char	*ft_itoa(int n);
 // get_next_line
 char	*get_next_line(int fd);
 ssize_t	readline(ssize_t byte_read, char *buffer, char **readed, int fd);
-bool	ft_isinstr(char *str, int c);
 void	addtoreaded(char **readed, char *buffer);
 char	*addtoline(char *readed);
 void	cleanreaded(char **readed);
