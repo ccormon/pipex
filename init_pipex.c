@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/08 15:30:09 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:58:45 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ char	*ft_which(char *cmd, char **paths)
 	char	*cmd_path;
 	size_t	i;
 
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		else
+			return (NULL);
+	}
 	i = 0;
 	while (paths[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 12:55:00 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/08 15:53:54 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:39:11 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	exec_cmd(t_pipex *data, char **envp, size_t cmd_no)
 		close(data->pipe_fd[(cmd_no + 1) % 2][0]);
 		dup2(data->pipe_fd[cmd_no % 2][1], STDOUT_FILENO);
 		close(data->pipe_fd[cmd_no % 2][1]);
+		close(data->pipe_fd[cmd_no % 2][0]);
 		if (data->cmd[cmd_no].path)
 			execve(data->cmd[cmd_no].path, data->cmd[cmd_no].args, envp);
 		error_msg(data->cmd[cmd_no].args[0]);
-		close(data->pipe_fd[(cmd_no + 1) % 2][1]);
-		close(data->pipe_fd[cmd_no % 2][0]);
 		exit_pipex(data, 127);
 	}
 }
