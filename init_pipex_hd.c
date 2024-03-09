@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:43:13 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/08 15:29:52 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/09 13:44:51 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ void	read_input(t_pipex *data, char *lim_eol)
 
 	ft_putstr_fd("> ", STDOUT_FILENO);
 	buffer = get_next_line(STDIN_FILENO);
-	if (!buffer || ft_strcmp(buffer, lim_eol))
-	{
-		free(buffer);
-		exit_pipex(data, 5);
-	}
 	while (buffer && !ft_strcmp(buffer, lim_eol))
 	{
 		ft_putstr_fd(buffer, data->in_fd);
