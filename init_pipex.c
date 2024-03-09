@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:00:25 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/08 16:58:45 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/09 15:30:37 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	while (argv[i + 2])
 	{
 		data->cmd[i].args = ft_split(argv[i + 1], ' ');
-		data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
+		if (!data->cmd[i].args)
+			data->cmd[i].path = NULL;
+		else
+			data->cmd[i].path = ft_which(data->cmd[i].args[0], data->paths);
 		i++;
 	}
 	data->pid_child = malloc(data->nb_cmd * sizeof(int));

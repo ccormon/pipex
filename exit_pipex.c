@@ -6,7 +6,7 @@
 /*   By: ccormon <ccormon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:55:19 by ccormon           #+#    #+#             */
-/*   Updated: 2024/03/08 15:44:09 by ccormon          ###   ########.fr       */
+/*   Updated: 2024/03/09 15:33:58 by ccormon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	exit_pipex(t_pipex *data, int code)
 		i = 0;
 		while (i < data->nb_cmd)
 		{
-			free_split(data->cmd[i].args);
+			if (data->cmd[i].args)
+				free_split(data->cmd[i].args);
 			free(data->cmd[i++].path);
 		}
 		free(data->cmd);
